@@ -63,20 +63,26 @@ class EditMailBoxRequest extends AbstractRequest
     {
         $record = [
             'domain' => $this->domain,
-            'login' => $this->mailBox->getLogin(),
-            'uid' => $this->mailBox->getUid(),
-            'iname' => $this->mailBox->getIName(),
-            'fname' => $this->mailBox->getFName(),
-            'enabled' => $this->mailBox->getEnabled(),
-            'birth_date' => $this->mailBox->getBirthDate(),
-            'sex' => $this->mailBox->getSex(),
-            'hintq' => $this->mailBox->getHintq(),
-            'hinta' => $this->mailBox->getHinta(),
         ];
 
-        if ($this->mailBox->getPassword()) {
-            $record['password'] = $this->mailBox->getPassword();
+        if (!$this->mailBox->getUid()) {
+            $record['uid'] = $this->mailBox->getUid();
+        } elseif (!$this->mailBox->getLogin()) {
+            $record['login'] = $this->mailBox->getLogin();
+        } else {
+            return null; //for validation
         }
+
+        $record = array_merge($record, array_filter([
+            'iname'      => $this->mailBox->getIName(),
+            'fname'      => $this->mailBox->getFName(),
+            'enabled'    => $this->mailBox->getEnabled(),
+            'birth_date' => $this->mailBox->getBirthDate(),
+            'sex'        => $this->mailBox->getSex(),
+            'hintq'      => $this->mailBox->getHintq(),
+            'hinta'      => $this->mailBox->getHinta(),
+            'password'   => $this->mailBox->getPassword()
+        ]));
 
         return $record;
     }
