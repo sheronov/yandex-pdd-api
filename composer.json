@@ -1,5 +1,6 @@
 {
-  "name": "amaxlab/yandex-pdd-api",
+  "name": "sheronov/yandex-pdd-api",
+  "version": "0.1.1",
   "description": "Client for yandex pdd api",
   "keywords": [ "php", "yandex", "pdd", "api"],
   "homepage": "https://github.com/amaxlab/yandex-pdd-api",
@@ -28,6 +29,10 @@
     {
       "name": "Egor Zyuskin",
       "email": "ezyuskin@amaxlab.ru"
+    },
+    {
+      "name": "Evgeniy Sheronov",
+      "email": "webrush@bk.ru"
     }
   ]
 }
