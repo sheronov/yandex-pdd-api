@@ -24,9 +24,6 @@ use AmaxLab\YandexPddApi\Response\Domain\GetDomainRegistrationStatusResponse;
 use AmaxLab\YandexPddApi\Response\Domain\RegisterDomainResponse;
 use AmaxLab\YandexPddApi\Response\Domain\SetDomainCountryResponse;
 
-/**
- * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
- */
 class DomainManager extends AbstractManager
 {
     /**
@@ -34,7 +31,7 @@ class DomainManager extends AbstractManager
      */
     public function getDomainList()
     {
-        return $this->request(new GetDomainsListRequest(), 'AmaxLab\YandexPddApi\Response\Domain\GetDomainsListResponse');
+        return $this->request(new GetDomainsListRequest(), GetDomainsListResponse::class);
     }
 
     /**
@@ -44,7 +41,7 @@ class DomainManager extends AbstractManager
      */
     public function registerDomain($domainName)
     {
-        return $this->request(new RegisterDomainRequest($domainName), 'AmaxLab\YandexPddApi\Response\Domain\RegisterDomainResponse');
+        return $this->request(new RegisterDomainRequest($domainName), RegisterDomainResponse::class);
     }
 
     /**
@@ -54,7 +51,8 @@ class DomainManager extends AbstractManager
      */
     public function getRegistrationStatusDomain($domainName)
     {
-        return $this->request(new GetDomainRegistrationStatusRequest($domainName), 'AmaxLab\YandexPddApi\Response\Domain\GetDomainRegistrationStatusResponse');
+        return $this->request(new GetDomainRegistrationStatusRequest($domainName),
+            GetDomainRegistrationStatusResponse::class);
     }
 
     /**
@@ -64,7 +62,7 @@ class DomainManager extends AbstractManager
      */
     public function getDomainSettings($domainName)
     {
-        return $this->request(new GetDomainSettingRequest($domainName), 'AmaxLab\YandexPddApi\Response\Domain\GetDomainSettingsResponse');
+        return $this->request(new GetDomainSettingRequest($domainName), GetDomainSettingsResponse::class);
     }
 
     /**
@@ -74,7 +72,7 @@ class DomainManager extends AbstractManager
      */
     public function deleteDomain($domainName)
     {
-        return $this->request(new DeleteDomainRequest($domainName), 'AmaxLab\YandexPddApi\Response\Domain\DeleteDomainResponse');
+        return $this->request(new DeleteDomainRequest($domainName), DeleteDomainResponse::class);
     }
 
     /**
@@ -85,6 +83,6 @@ class DomainManager extends AbstractManager
      */
     public function setDomainCountry($domainName, $country)
     {
-        return $this->request(new SetDomainCountryRequest($domainName, $country), 'AmaxLab\YandexPddApi\Response\Domain\SetDomainCountryResponse');
+        return $this->request(new SetDomainCountryRequest($domainName, $country), SetDomainCountryResponse::class);
     }
 }

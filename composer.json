@@ -1,13 +1,13 @@
 {
   "name": "sheronov/yandex-pdd-api",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Client for yandex pdd api",
   "keywords": [ "php", "yandex", "pdd", "api"],
-  "homepage": "https://github.com/amaxlab/yandex-pdd-api",
+  "homepage": "https://github.com/sheronov/yandex-pdd-api",
   "license": "MIT",
   "type": "library",
   "require": {
-    "php": ">=5.4",
+    "php": ">=5.5",
     "netresearch/jsonmapper": "^1.2"
   },
   "require-dev": {
@@ -22,7 +22,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.1.x-dev"
+      "dev-master": "0.2.x-dev"
     }
   },
   "authors": [

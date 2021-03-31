@@ -22,9 +22,6 @@ use AmaxLab\YandexPddApi\Response\AbstractResponse;
 use AmaxLab\YandexPddApi\Response\ResponseInterface;
 use JsonMapper;
 
-/**
- * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
- */
 abstract class AbstractManager
 {
     const PDD_URL = 'https://pddimp.yandex.ru';

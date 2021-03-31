@@ -21,9 +21,6 @@ use AmaxLab\YandexPddApi\Response\Dns\DeleteDnsRecordResponse;
 use AmaxLab\YandexPddApi\Response\Dns\EditDnsRecordResponse;
 use AmaxLab\YandexPddApi\Response\Dns\GetDnsRecordsResponse;
 
-/**
- * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
- */
 class DnsManager extends AbstractManager
 {
     /**
@@ -33,7 +30,7 @@ class DnsManager extends AbstractManager
      */
     public function addRecord(DnsRecordModel $record)
     {
-        return $this->request((new AddDnsRecordRequest($record)), 'AmaxLab\YandexPddApi\Response\Dns\AddDnsRecordResponse');
+        return $this->request((new AddDnsRecordRequest($record)), AddDnsRecordResponse::class);
     }
 
     /**
@@ -43,7 +40,7 @@ class DnsManager extends AbstractManager
      */
     public function getRecords($domain)
     {
-        return $this->request((new GetDnsRecordsRequest($domain)), 'AmaxLab\YandexPddApi\Response\Dns\GetDnsRecordsResponse');
+        return $this->request((new GetDnsRecordsRequest($domain)), GetDnsRecordsResponse::class);
     }
 
     /**
@@ -53,7 +50,7 @@ class DnsManager extends AbstractManager
      */
     public function editRecord(DnsRecordModel $record)
     {
-        return $this->request((new EditDnsRecordRequest($record)), 'AmaxLab\YandexPddApi\Response\Dns\EditDnsRecordResponse');
+        return $this->request((new EditDnsRecordRequest($record)), EditDnsRecordResponse::class);
     }
 
     /**
@@ -64,6 +61,6 @@ class DnsManager extends AbstractManager
      */
     public function deleteRecord($domain, $recordId)
     {
-        return $this->request((new DeleteDnsRecordRequest($domain, $recordId)), 'AmaxLab\YandexPddApi\Response\Dns\DeleteDnsRecordResponse');
+        return $this->request((new DeleteDnsRecordRequest($domain, $recordId)), DeleteDnsRecordResponse::class);
     }
 }
