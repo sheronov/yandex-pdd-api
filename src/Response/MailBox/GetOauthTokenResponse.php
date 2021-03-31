@@ -104,14 +104,13 @@ class GetOauthTokenResponse extends AbstractResponse
     }
 
     /**
-     * @param $oauthToken
+     * @param string $oauthToken
      *
      * @return $this
      */
     public function setOauthToken($oauthToken)
     {
         $this->oauthToken = $oauthToken;
-
         return $this;
     }
 }

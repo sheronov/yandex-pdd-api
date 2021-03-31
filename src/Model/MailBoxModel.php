@@ -93,6 +93,11 @@ class MailBoxModel
     private $password;
 
     /**
+     * @var string
+     */
+    private $oauthToken;
+
+    /**
      * @return string
      */
     public function getLogin()
@@ -367,6 +372,26 @@ class MailBoxModel
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOauthToken()
+    {
+        return $this->oauthToken;
+    }
+
+    /**
+     * @param $oauthToken
+     *
+     * @return $this
+     */
+    public function setOauthToken($oauthToken)
+    {
+        $this->oauthToken = $oauthToken;
 
         return $this;
     }

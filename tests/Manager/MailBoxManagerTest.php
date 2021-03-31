@@ -11,24 +11,22 @@
 
 namespace AmaxLab\YandexPddApi\Tests\Manager;
 
+use AmaxLab\YandexPddApi\Curl\CurlClientInterface;
 use AmaxLab\YandexPddApi\Curl\CurlResponse;
 use AmaxLab\YandexPddApi\Manager\MailBoxManager;
 use AmaxLab\YandexPddApi\Model\MailBoxModel;
 use Xpmock\TestCaseTrait;
 
-/**
- * @author Egor Zyuskin <ezyuskin@amaxlab.ru>
- */
 class MailBoxManagerTest extends \PHPUnit_Framework_TestCase
 {
     use TestCaseTrait;
 
     public function testAddMailBox()
     {
-        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-            ->request((new CurlResponse(200, '{"success": "ok", "login": "test@domain.com", "uid": 123, "domain": "domain.com"}')))
-            ->new()
-        ;
+        $curl = $this->mock(CurlClientInterface::class)
+            ->request((new CurlResponse(200,
+                '{"success": "ok", "login": "test@domain.com", "uid": 123, "domain": "domain.com"}')))
+            ->new();
 
         $response = (new MailBoxManager(''))->setCurl($curl)->addMailBox('domain.com', 'test', 'Qwerty123');
 
@@ -39,10 +37,10 @@ class MailBoxManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMailBoxes()
     {
-        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-            ->request((new CurlResponse(200, '{"direction":"desc","on_page":20,"success":"ok","pages":1,"domain":"domain.com","order":"uid","box_limit":1000,"accounts":[{"uid":0,"iname":"","sex":null,"ready":"no","hintq":"","aliases":[],"enabled":"yes","maillist":"yes","fname":"","birth_date":null,"login":"admin@domain.com","fio":""},{"uid":1,"iname":"Test","sex":1,"ready":"yes","hintq":"Who are you?","aliases":["test2@domain.com"],"enabled":"yes","maillist":"no","fname":"Testov","birth_date":"1984-03-09","login":"test@domain.com","fio":"Testov Test"}],"offset":null,"found":2,"total":2,"page":1}')))
-            ->new()
-        ;
+        $curl = $this->mock(CurlClientInterface::class)
+            ->request((new CurlResponse(200,
+                '{"direction":"desc","on_page":20,"success":"ok","pages":1,"domain":"domain.com","order":"uid","box_limit":1000,"accounts":[{"uid":0,"iname":"","sex":null,"ready":"no","hintq":"","aliases":[],"enabled":"yes","maillist":"yes","fname":"","birth_date":null,"login":"admin@domain.com","fio":""},{"uid":1,"iname":"Test","sex":1,"ready":"yes","hintq":"Who are you?","aliases":["test2@domain.com"],"enabled":"yes","maillist":"no","fname":"Testov","birth_date":"1984-03-09","login":"test@domain.com","fio":"Testov Test"}],"offset":null,"found":2,"total":2,"page":1}')))
+            ->new();
 
         $response = (new MailBoxManager(''))->setCurl($curl)->getMailBoxes('domain.com');
         $accounts = $response->getAccounts();
@@ -71,12 +69,13 @@ class MailBoxManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testEditMailBox()
     {
-        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-            ->request((new CurlResponse(200, '{"account": {"uid": 123, "iname": "", "sex": null, "ready": "no", "hintq": "", "aliases": [], "enabled": "yes", "maillist": "no", "fname": "", "birth_date": null, "login": "test@domain.com", "fio": ""}, "success": "ok", "login": "test@domain.com", "uid": 123, "domain": "domain.com"}')))
-            ->new()
-        ;
+        $curl = $this->mock(CurlClientInterface::class)
+            ->request((new CurlResponse(200,
+                '{"account": {"uid": 123, "iname": "", "sex": null, "ready": "no", "hintq": "", "aliases": [], "enabled": "yes", "maillist": "no", "fname": "", "birth_date": null, "login": "test@domain.com", "fio": ""}, "success": "ok", "login": "test@domain.com", "uid": 123, "domain": "domain.com"}')))
+            ->new();
 
-        $response = (new MailBoxManager(''))->setCurl($curl)->editMailBox('domain.com', (new MailBoxModel())->setUid(123)->setPassword('secret')->setHinta('answer'));
+        $response = (new MailBoxManager(''))->setCurl($curl)
+            ->editMailBox('domain.com', (new MailBoxModel())->setUid(123)->setPassword('secret')->setHinta('answer'));
 
         $this->assertEquals('domain.com', $response->getDomain());
         $this->assertEquals(123, $response->getUid());
@@ -86,10 +85,9 @@ class MailBoxManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testDeleteMailBox()
     {
-        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
+        $curl = $this->mock(CurlClientInterface::class)
             ->request((new CurlResponse(200, '{"login": "test@domain.com", "domain": "domain.com", "success": "ok"}')))
-            ->new()
-        ;
+            ->new();
 
         $response = (new MailBoxManager(''))->setCurl($curl)->deleteMailBox('domain.com', 'test@domain.com');
 
@@ -99,10 +97,10 @@ class MailBoxManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMailCountInMailBox()
     {
-        $curl = $this->mock('AmaxLab\YandexPddApi\Curl\CurlClientInterface')
-            ->request((new CurlResponse(200, '{"success": "ok", "login": "test@domain.com", "uid": 123, "domain": "domain.com", "counters": {"new": 1, "unread": 2}}')))
-            ->new()
-        ;
+        $curl = $this->mock(CurlClientInterface::class)
+            ->request((new CurlResponse(200,
+                '{"success": "ok", "login": "test@domain.com", "uid": 123, "domain": "domain.com", "counters": {"new": 1, "unread": 2}}')))
+            ->new();
 
         $response = (new MailBoxManager(''))->setCurl($curl)->getMailCountInMailBox('domain.com', 'test@domain.com');
 
@@ -112,4 +110,23 @@ class MailBoxManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, $response->getCounters()->getNew());
         $this->assertEquals(2, $response->getCounters()->getUnread());
     }
+
+    public function testGetOauthToken()
+    {
+        $curl = $this->mock(CurlClientInterface::class)
+            ->request((new CurlResponse(200,
+                '{"domain": "domain.com", "login": "test@domain.com", "oauth-token": "ABCDEF1234567890", "uid": 123, "success": "ok"}')))
+            ->new();
+
+        $response = (new MailBoxManager(''))
+            ->setCurl($curl)
+            ->getOauthToken('domain.com', 'test@domain.com', false);
+
+        $this->assertEquals('domain.com', $response->getDomain());
+        $this->assertEquals('test@domain.com', $response->getLogin());
+        $this->assertEquals('123', $response->getUid());
+        $this->assertEquals('ABCDEF1234567890', $response->getOauthToken());
+    }
 }
+
+
