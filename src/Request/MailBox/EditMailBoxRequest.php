@@ -65,9 +65,9 @@ class EditMailBoxRequest extends AbstractRequest
             'domain' => $this->domain,
         ];
 
-        if (!$this->mailBox->getUid()) {
+        if (!empty($this->mailBox->getUid())) {
             $record['uid'] = $this->mailBox->getUid();
-        } elseif (!$this->mailBox->getLogin()) {
+        } elseif (!empty($this->mailBox->getLogin())) {
             $record['login'] = $this->mailBox->getLogin();
         } else {
             return null; //for validation
